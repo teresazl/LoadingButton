@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.Button;
 
 /**
@@ -125,6 +126,28 @@ public class FlatButton extends Button {
             setBackgroundDrawable(drawable);
         }
         setPadding(pL, pT, pR, pB);
+    }
+
+    /**
+     * dp 2 px
+     *
+     * @param dpVal
+     */
+    protected int dp2px(int dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dpVal, getResources().getDisplayMetrics());
+    }
+
+    /**
+     * sp 2 px
+     *
+     * @param spVal
+     * @return
+     */
+    protected int sp2px(int spVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                spVal, getResources().getDisplayMetrics());
+
     }
 
 }

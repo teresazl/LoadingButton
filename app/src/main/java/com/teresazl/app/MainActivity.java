@@ -17,34 +17,49 @@ public class MainActivity extends AppCompatActivity implements ProcessButton.Loa
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            int progress = loadingButton.getProgress();
+            int progress = normalBtn.getProgress();
 
             if (progress >= 100) {
                 mHandler.removeMessages(MSG_UPDATE);
             } else {
-                loadingButton.setProgress(++progress);
+                normalBtn.setProgress(++progress);
             }
 
             mHandler.sendEmptyMessageDelayed(MSG_UPDATE, 100);
         }
     };
 
-    private LoadingButton loadingButton;
+    private LoadingButton normalBtn;
+    private LoadingButton completeBtn;
+    private LoadingButton errorBtn;
+    private LoadingButton processBtn;
+    private LoadingButton spotBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadingButton = (LoadingButton) findViewById(R.id.loading_btn);
-        loadingButton.setOnLoadCompleteListener(this);
-
-        loadingButton.setOnClickListener(new View.OnClickListener() {
+        normalBtn = (LoadingButton) findViewById(R.id.loading_btn_normal);
+        normalBtn.setOnLoadCompleteListener(this);
+        normalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mHandler.sendEmptyMessage(MSG_UPDATE);
             }
         });
+
+        completeBtn = (LoadingButton) findViewById(R.id.loading_btn_complete);
+        completeBtn.setProgress(100);
+
+        errorBtn = (LoadingButton) findViewById(R.id.loading_btn_error);
+        errorBtn.setProgress(-1);
+
+        processBtn = (LoadingButton) findViewById(R.id.loading_btn_process);
+        processBtn.setProgress(50);
+
+        spotBtn = (LoadingButton) findViewById(R.id.loading_btn_spot);
+        spotBtn.setProgress(50);
 
     }
 

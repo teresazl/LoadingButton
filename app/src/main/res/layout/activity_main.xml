@@ -9,7 +9,7 @@
     tools:context="com.teresazl.app.MainActivity">
 
     <com.teresazl.library.impl.LoadingButton
-        android:id="@+id/loading_btn"
+        android:id="@+id/loading_btn_normal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Send"
@@ -17,5 +17,52 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:complete_text="DONE" />
+
+    <com.teresazl.library.impl.LoadingButton
+        android:id="@+id/loading_btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Send"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:complete_text="SUCCESS" />
+
+    <com.teresazl.library.impl.LoadingButton
+        android:id="@+id/loading_btn_error"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Send"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:error_text="ERROR" />
+
+    <com.teresazl.library.impl.LoadingButton
+        android:id="@+id/loading_btn_process"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Send"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:complete_text="SUCCESS" />
+
+    <com.teresazl.library.impl.LoadingButton
+        android:id="@+id/loading_btn_spot"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Send"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:spot_color="@color/colorAccent"
+        app:spot_radius="2dp"
+        app:progress_color="@color/colorPrimary"
+        app:complete_text="SUCCESS" />
 
 </LinearLayout>

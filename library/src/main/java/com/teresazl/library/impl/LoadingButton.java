@@ -5,12 +5,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
 import com.teresazl.library.ProcessButton;
+import com.teresazl.library.R;
 
 /**
  * Created by teresa on 2016-6-16.
@@ -19,7 +20,10 @@ public class LoadingButton extends ProcessButton {
 
     private static final int DELAY = 150;
     private static final int DURATION = 1500;
-    private static final int DEFAULT_SIZE = 5;
+
+    private static final int DEFAULT_SPOT_COUNT = 5;
+    private static final int DEFAULT_SPOT_RADIUS = 4;
+    private static final int DEFAULT_SPOT_COLOR = 0XFFFFFFFF;
 
     private Paint paints[];
 
@@ -32,7 +36,9 @@ public class LoadingButton extends ProcessButton {
     private float start = -10;
     private float end;
     private int  mHeight;
-    private int mRadius = 10;
+
+    private int mSpotRadius = dp2px(DEFAULT_SPOT_RADIUS);
+    private int mSpotColor = DEFAULT_SPOT_COLOR;
 
     private ObjectAnimator animators[];
 
@@ -48,16 +54,27 @@ public class LoadingButton extends ProcessButton {
 
     public LoadingButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        obtainStyledAttrs(attrs);
+    }
+
+    private void obtainStyledAttrs(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingButton);
+
+        mSpotColor = typedArray.getColor(R.styleable.LoadingButton_spot_color, mSpotColor);
+        mSpotRadius = (int) typedArray.getDimension(R.styleable.LoadingButton_spot_radius, mSpotRadius);
+
+        typedArray.recycle();
     }
 
     private void init() {
 
-        paints = new Paint[DEFAULT_SIZE];
-        animators = new ObjectAnimator[DEFAULT_SIZE];
+        paints = new Paint[DEFAULT_SPOT_COUNT];
+        animators = new ObjectAnimator[DEFAULT_SPOT_COUNT];
 
-        for (int i = 0; i < DEFAULT_SIZE; i++) {
+        for (int i = 0; i < DEFAULT_SPOT_COUNT; i++) {
             paints[i] = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paints[i].setColor(Color.WHITE);
+            paints[i].setColor(mSpotColor);
 
             animators[i] = ObjectAnimator.ofFloat(this, "cx" + i, start, end);
             animators[i].setDuration(DURATION);
@@ -68,7 +85,7 @@ public class LoadingButton extends ProcessButton {
             }
             animators[i].setInterpolator(new DecelerateAccelerateInterpolator());
 
-            if (i == DEFAULT_SIZE - 1) {
+            if (i == DEFAULT_SPOT_COUNT - 1) {
                 animators[i].addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -92,8 +109,8 @@ public class LoadingButton extends ProcessButton {
 
         setMeasuredDimension(measuredWidth, measuredHeight);
 
-        end = -start + getMeasuredWidth();
-        mHeight = (measuredHeight - mRadius) / 2;
+        end = -start + getMeasuredWidth() + mSpotRadius;
+        mHeight = (measuredHeight - mSpotRadius) / 2;
         init();
     }
 
@@ -104,15 +121,15 @@ public class LoadingButton extends ProcessButton {
             isRunning = true;
         }
 
-        canvas.drawCircle(cx0, mHeight, mRadius, paints[0]);
-        canvas.drawCircle(cx1, mHeight, mRadius, paints[1]);
-        canvas.drawCircle(cx2, mHeight, mRadius, paints[2]);
-        canvas.drawCircle(cx3, mHeight, mRadius, paints[3]);
-        canvas.drawCircle(cx4, mHeight, mRadius, paints[4]);
+        canvas.drawCircle(cx0, mHeight, mSpotRadius, paints[0]);
+        canvas.drawCircle(cx1, mHeight, mSpotRadius, paints[1]);
+        canvas.drawCircle(cx2, mHeight, mSpotRadius, paints[2]);
+        canvas.drawCircle(cx3, mHeight, mSpotRadius, paints[3]);
+        canvas.drawCircle(cx4, mHeight, mSpotRadius, paints[4]);
     }
 
     public void start() {
-        for (int i = 0; i < DEFAULT_SIZE; i++) {
+        for (int i = 0; i < DEFAULT_SPOT_COUNT; i++) {
             animators[i].start();
         }
     }

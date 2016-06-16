@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="LoadingButton">
+        <attr name="spot_color" format="color" />
+        <attr name="spot_radius" format="dimension" />
+    </declare-styleable>
+
     <declare-styleable name="ProcessButton">
         <attr name="complete_text" format="string" />
         <attr name="error_text" format="string" />
