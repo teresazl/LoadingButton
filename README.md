@@ -62,7 +62,7 @@ There are four status in LoadingButton
 
 # About
 If you like this project, please star me  
-If you have any question please email me: teresazl@yeah.net
+If you have any questions, please email me: teresazl@yeah.net
 
 
 [1]: https://github.com/teresazl/LoadingButton/blob/master/screenshots/loading_button.gif
