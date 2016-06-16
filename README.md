@@ -7,10 +7,10 @@
 
 # Sample Usage
 There are four status in LoadingButton  
-Normal  ---->  1  
-Process  ---->  2 ~ 99  
-Complete  ----> 100  
-Error  ---->  -1  
+* Normal  ---->  1  
+* Process  ---->  2 ~ 99  
+* Complete  ----> 100  
+* Error  ---->  -1  
 
 ### Layout
         <com.teresazl.library.impl.LoadingButton
@@ -59,5 +59,10 @@ Error  ---->  -1
                 Toast.makeText(this, "complete", Toast.LENGTH_SHORT).show();
             }
         }
+
+# About
+If you like this project, please star me  
+If you have any question please email me: teresazl@yeah.net
+
 
 [1]: https://github.com/teresazl/LoadingButton/blob/master/screenshots/loading_button.gif
