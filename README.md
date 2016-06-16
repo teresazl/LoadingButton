@@ -52,6 +52,8 @@ Error  ---->  -1
             ....
             ....
             
+            normalBtn.setOnLoadCompleteListener(this);
+            
             @Override
             public void loadComplete() {
                 Toast.makeText(this, "complete", Toast.LENGTH_SHORT).show();
