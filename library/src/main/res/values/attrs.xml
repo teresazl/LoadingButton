@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ProcessButton">
+        <attr name="complete_text" format="string" />
+        <attr name="error_text" format="string" />
+        <attr name="progress_color" format="color" />
+        <attr name="complete_color" format="color" />
+        <attr name="error_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FlatButton">
+        <attr name="pressed_color" format="color" />
+        <attr name="normal_color" format="color" />
+        <attr name="radius_corner" format="dimension" />
+    </declare-styleable>
+
+</resources>
