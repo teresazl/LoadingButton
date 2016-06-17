@@ -73,19 +73,26 @@ public abstract class ProcessButton extends FlatButton {
         typedArray.recycle();
     }
 
-    private LoadCompleteListener listener;
+    private LoadingListener listener;
 
-    public interface LoadCompleteListener {
+    public interface LoadingListener {
         void loadComplete();
+        void loadError();
     }
 
-    public void setOnLoadCompleteListener(LoadCompleteListener listener) {
+    public void setOnLoadingListener(LoadingListener listener) {
         this.listener = listener;
     }
 
     private void invokeComplete() {
         if (listener != null) {
             listener.loadComplete();
+        }
+    }
+
+    private void invokeError() {
+        if (listener != null) {
+            listener.loadError();
         }
     }
 
@@ -99,6 +106,7 @@ public abstract class ProcessButton extends FlatButton {
             invokeComplete();
         } else if (mProgress < mMinProgress) {
             onErrorState();
+            invokeError();
         } else {
             onProgress();
         }

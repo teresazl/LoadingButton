@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.teresazl.library.ProcessButton;
 import com.teresazl.library.impl.LoadingButton;
 
-public class MainActivity extends AppCompatActivity implements ProcessButton.LoadCompleteListener {
+public class MainActivity extends AppCompatActivity implements ProcessButton.LoadingListener {
 
     private static final int MSG_UPDATE = 1;
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ProcessButton.Loa
         setContentView(R.layout.activity_main);
 
         normalBtn = (LoadingButton) findViewById(R.id.loading_btn_normal);
-        normalBtn.setOnLoadCompleteListener(this);
+        normalBtn.setOnLoadingListener(this);
         normalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,5 +66,10 @@ public class MainActivity extends AppCompatActivity implements ProcessButton.Loa
     @Override
     public void loadComplete() {
         Toast.makeText(this, "complete", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loadError() {
+        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
     }
 }
