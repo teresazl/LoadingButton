@@ -1,6 +1,5 @@
 # LoadingButton
-一个带圆点进度显示的按钮
-模仿windows效果
+一个带圆点进度显示的按钮  模仿windows效果
 
 # Demo
 ![Sample Screenshots][1]
@@ -13,6 +12,7 @@ There are four status in LoadingButton
 * Error  ---->  -1  
 
 ### Layout
+
         <com.teresazl.library.impl.LoadingButton
             android:id="@+id/loading_btn_normal"
             android:layout_width="match_parent"
@@ -24,6 +24,7 @@ There are four status in LoadingButton
             app:complete_text="DONE" />
 
 ### Activity
+
         // normal
         normalBtn = (LoadingButton) findViewById(R.id.loading_btn_normal);
         normalBtn.setOnLoadCompleteListener(this);
@@ -48,16 +49,21 @@ There are four status in LoadingButton
         
 ### CallBack
 
-        public class MainActivity extends AppCompatActivity implements ProcessButton.LoadCompleteListener {
+        public class MainActivity extends AppCompatActivity implements ProcessButton.LoadingListener {
             ....
             ....
             
-            normalBtn.setOnLoadCompleteListener(this);
+            normalBtn.setOnLoadingListener(this);
             
             @Override
-            public void loadComplete() {
-                Toast.makeText(this, "complete", Toast.LENGTH_SHORT).show();
-            }
+                public void loadComplete() {
+                    Toast.makeText(this, "complete", Toast.LENGTH_SHORT).show();
+                }
+            
+                @Override
+                public void loadError() {
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                }
         }
 
 # About
