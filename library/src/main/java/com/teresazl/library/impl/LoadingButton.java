@@ -26,14 +26,9 @@ public class LoadingButton extends ProcessButton {
     private static final int DEFAULT_SPOT_COLOR = 0XFFFFFFFF;
 
     private Paint paints[];
+    private SpotView spotViews[];
 
-    private float cx0 = -10;
-    private float cx1 = -10;
-    private float cx2 = -10;
-    private float cx3 = -10;
-    private float cx4 = -10;
-
-    private float start = -10;
+    private float start;
     private float end;
     private int  mHeight;
 
@@ -71,12 +66,15 @@ public class LoadingButton extends ProcessButton {
 
         paints = new Paint[DEFAULT_SPOT_COUNT];
         animators = new ObjectAnimator[DEFAULT_SPOT_COUNT];
+        spotViews = new SpotView[DEFAULT_SPOT_COUNT];
 
         for (int i = 0; i < DEFAULT_SPOT_COUNT; i++) {
             paints[i] = new Paint(Paint.ANTI_ALIAS_FLAG);
             paints[i].setColor(mSpotColor);
+            spotViews[i] = new SpotView();
+            spotViews[i].setX(start);
 
-            animators[i] = ObjectAnimator.ofFloat(this, "cx" + i, start, end);
+            animators[i] = ObjectAnimator.ofFloat(spotViews[i], "x", start, end);
             animators[i].setDuration(DURATION);
             if (i == 0) {
                 animators[i].start();
@@ -109,6 +107,7 @@ public class LoadingButton extends ProcessButton {
 
         setMeasuredDimension(measuredWidth, measuredHeight);
 
+        start = -mSpotRadius;
         end = -start + getMeasuredWidth() + mSpotRadius;
         mHeight = (measuredHeight - mSpotRadius) / 2;
         init();
@@ -121,62 +120,16 @@ public class LoadingButton extends ProcessButton {
             isRunning = true;
         }
 
-        canvas.drawCircle(cx0, mHeight, mSpotRadius, paints[0]);
-        canvas.drawCircle(cx1, mHeight, mSpotRadius, paints[1]);
-        canvas.drawCircle(cx2, mHeight, mSpotRadius, paints[2]);
-        canvas.drawCircle(cx3, mHeight, mSpotRadius, paints[3]);
-        canvas.drawCircle(cx4, mHeight, mSpotRadius, paints[4]);
+        for (int i = 0; i < DEFAULT_SPOT_COUNT; i++) {
+            canvas.drawCircle(spotViews[i].getX(), mHeight, mSpotRadius, paints[i]);
+            invalidate();
+        }
     }
 
     public void start() {
         for (int i = 0; i < DEFAULT_SPOT_COUNT; i++) {
             animators[i].start();
         }
-    }
-
-    public float getCx0() {
-        return cx0;
-    }
-
-    public void setCx0(float cx0) {
-        this.cx0 = cx0;
-        invalidate();
-    }
-
-    public float getCx1() {
-        return cx1;
-    }
-
-    public void setCx1(float cx1) {
-        this.cx1 = cx1;
-        invalidate();
-    }
-
-    public float getCx2() {
-        return cx2;
-    }
-
-    public void setCx2(float cx2) {
-        this.cx2 = cx2;
-        invalidate();
-    }
-
-    public float getCx3() {
-        return cx3;
-    }
-
-    public void setCx3(float cx3) {
-        this.cx3 = cx3;
-        invalidate();
-    }
-
-    public float getCx4() {
-        return cx4;
-    }
-
-    public void setCx4(float cx4) {
-        this.cx4 = cx4;
-        invalidate();
     }
 
     private class DecelerateAccelerateInterpolator implements TimeInterpolator {
